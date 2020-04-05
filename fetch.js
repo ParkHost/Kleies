@@ -11,7 +11,7 @@ require('dotenv').config()
 const accessToken = process.env.TOKEN;
 
 const url = `https://graph.facebook.com/v6.0/2844484592301102/photos?pretty=0&fields=source&limit=50&after=Mjg0NDY4ODM1ODk0NzM5MgZDZD&access_token=${accessToken}`
-const testurl = `https://graph.facebook.com/v6.0/2844484592301102/photos?fields=source,name&limit=200&access_token=${accessToken}`
+const testurl = `https://graph.facebook.com/v6.0/2844484592301102/photos?fields=source,name&limit=100&access_token=${accessToken}`
 
 app.get('/', (req, res) => {
   res.send('API is Working ✔')
@@ -24,7 +24,7 @@ app.get('/fb', async (req, res, next) => {
   
   if (data.status === 200) {
     const json = await data.json();
-    console.log(data.status)
+    console.log(json.data)
     const sources = json.data
     // console.log(sources)
     res.json(sources);

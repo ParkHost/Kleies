@@ -6,6 +6,15 @@ const modalClose = document.querySelector('.modal-close');
 
 const fb = 'http://192.168.99.207:3000/fb'
 
+document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
+
+function theDomHasLoaded(e) {
+  const card = document.querySelector('.card');
+
+    // do something with the images
+}
+
+
 test();
 
 async function test() {
@@ -25,7 +34,7 @@ async function test() {
           </figure>
           <div class="card-content has-background-black">
             <p
-              class="subtitle is-6 has-background-black has-text-centered has-text-white has-text-weight-bold">
+              class="subtitle is-size-7 has-background-black has-text-centered has-text-white has-text-weight-bold">
               ${element.name}</p>
           </div>
         </div>
