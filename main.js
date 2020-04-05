@@ -6,15 +6,6 @@ const modalClose = document.querySelector('.modal-close');
 
 const fb = 'https://kleies.herokuapp.com/fb'
 
-document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
-
-function theDomHasLoaded(e) {
-  const card = document.querySelector('.card');
-
-    // do something with the images
-}
-
-
 test();
 
 async function test() {
