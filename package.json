@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node ./fetch.js",
-    "dev": "nodemon ./fetch.js",
+    "start": "node fetch.js",
+    "dev": "nodemon fetch.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
