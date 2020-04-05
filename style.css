@@ -15,7 +15,6 @@
 .modal {
   padding: 1.75rem;
   pointer-events: none;
-  cursor: ;
 }
 
 
@@ -24,3 +23,7 @@
       fill: white;
   }
 }
+
+/* .mailto-icon {
+  flex-direction: row;
+} */
