@@ -4,7 +4,7 @@ const modal = document.querySelector('.modal');
 const modalClose = document.querySelector('.modal-close');
 
 
-const fb = 'http://192.168.99.207:3000/fb'
+const fb = 'https://kleies.herokuapp.com/fb'
 
 document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
 
