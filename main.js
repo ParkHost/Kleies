@@ -15,12 +15,12 @@ const intranetURL = 'http://192.168.99.207:3000/fb'
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${intranetURL}`);
+  const response = await fetch(`${internetURL}`);
   const data = await response.json();
 
   data.forEach(element => {
     kleiesFBPictures.innerHTML +=
-      `<div class="column is-inline-block-mobile is-6-mobile is-4-tablet is-3-desktop is-2-widescreen">
+      `<div class="column is-inline-block-mobile is-6-mobile is-4-tablet is-3-desktop is-2-widescreen has-background-red">
         <div class="card">
           <div class="card-div">
           <figure class="image is-1by1">

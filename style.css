@@ -2,18 +2,22 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: red;
+  /* background-color: red; */
   font-family: 'Montserrat Alternates', sans-serif;
 }
 
 body {
   /* height: 100vh; */
   overflow-y: hidden;
-  padding-right: 15px;
+  /* padding-right: 15px; */
 }
  
 .card-image {
   cursor: pointer;
+}
+
+.has-background-red {
+  background-color: red;
 }
 
 /* .modal {

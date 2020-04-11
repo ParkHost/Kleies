@@ -14,7 +14,7 @@
 </head>
 
 <body class="has-navbar-fixed-top">
-  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top has-background-red" role="navigation" aria-label="main navigation">
     <div class="navbar-brand" style="width: 100%;">
       <a class="navbar-item" href="#">
         <p class="is-size-4 has-text-black has-text-weight-bold">KleiES</p>
@@ -36,7 +36,8 @@
       </div>
     </div>
   </nav>
-  <div class="columns is-mobile is-centered">
+
+  <div class="columns is-mobile is-centered has-background-red">
     <div class="column"></div>
     <div class="column is-centered is-two-thirds-mobile is-half-tablet is-one-quarter-widescreen">
       <svg viewBox="0 0 25 25" id="logo">
@@ -125,12 +126,22 @@
     </div>
     <div class="column"></div>
   </div>
-  <div class="container is-fluid">
-    <div class="is-size-4-mobile is-size-2-tablet has-text-centered has-text-black-bis has-text-weight-bold">
-      Welkom Bij KleiES
+  <div class="columns is-fluid has-background-black" style="height: 5vh;"></div>
+  <div class="columns is-mobile is-centered has-background-white">
+    <div class="column"></div>
+    <div class="column is-fluid has-text-centered">
+      <p class="is-size-4-mobile is-size-2-tablet has-text-centered has-text-black-bis has-text-weight-bold">
+        Welkom Bij KleiES
+      </p>
+      <div class="is-size-6-mobile is-size-4-tablet has-text-centered has-text-black-bis has-text-weight-bold">
+        Esther maakt kleikunst vanuit haar artisteike atelier (de garage) met liefde en passie.
+        Mocht u interresse hebben kunt u via deze website in contact komen.
+      </div>
     </div>
+    <div class="column"></div>
   </div>
-  <div style='padding: 1.5rem;'>
+  <div class="columns is-fluid has-background-black" style="height: 5vh; margin-top: 1vh;"></div>
+  <div class=" columns has-background-red">
     <div class="columns is-multiline kleies-fb-pictures" style="margin-top: 2rem;"></div>
   </div>
   <div class="modal" style="padding: 1.75rem; overflow-y: hidden; height: 100vh;">
@@ -144,13 +155,19 @@
   </div>
   <script src="./main.js"></script>
   <!-- Start of Rocket.Chat Livechat Script -->
-<script type="text/javascript">
-  (function(w, d, s, u) {
-    w.RocketChat = function(c) { w.RocketChat._.push(c) }; w.RocketChat._ = []; w.RocketChat.url = u;
-    var h = d.getElementsByTagName(s)[0], j = d.createElement(s);
-    j.async = true; j.src = 'https://chat.parkhost.eu/livechat/rocketchat-livechat.min.js?_=201903270000';
-    h.parentNode.insertBefore(j, h);
-  })(window, document, 'script', 'https://chat.parkhost.eu/livechat');
+  <script type="text/javascript">
+    (function (w, d, s, u) {
+      w.RocketChat = function (c) {
+        w.RocketChat._.push(c)
+      };
+      w.RocketChat._ = [];
+      w.RocketChat.url = u;
+      var h = d.getElementsByTagName(s)[0],
+        j = d.createElement(s);
+      j.async = true;
+      j.src = 'https://chat.parkhost.eu/livechat/rocketchat-livechat.min.js?_=201903270000';
+      h.parentNode.insertBefore(j, h);
+    })(window, document, 'script', 'https://chat.parkhost.eu/livechat');
   </script>
   <!-- End of Rocket.Chat Livechat Script -->
 </body>
