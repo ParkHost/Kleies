@@ -6,7 +6,7 @@
 
 #### Still under development:
 * [x] Contact form Mobile view 
-* [ ] Open Modal only when selecting image
+* [x] Open Modal only when selecting image
 * [ ] Text on Modal (or FB-likes 👍🏻)
 * [x] Load all titles from FB (it doen't want to load from the last 2 images..) 
 
