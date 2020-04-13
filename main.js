@@ -25,7 +25,7 @@ const getData = async () => {
           <div class="card-div">
           <figure class="image is-1by1">
           <!-- <a href="${element.source}" target="_blank"> </a> -->
-          <img src="${element.source}" alt="Placeholder image" class="card-image">
+          <img src="${element.source}" id="${element.id}" alt="Placeholder image" class="card-image">
           </figure>
           <div class="card-content has-background-black">
             <p
