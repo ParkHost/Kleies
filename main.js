@@ -17,7 +17,7 @@ const reviewURL = 'https://kleies.herokuapp.com/message.html'
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${internet}`);
+  const response = await fetch(`${internetURL}`);
   const data = await response.json();
 
   data.forEach(element => {
