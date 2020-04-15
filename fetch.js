@@ -17,7 +17,7 @@ database.loadDatabase();
 
 app.use(cors());
 app.use(express.json());
-app.use(volleyball);
+// app.use(volleyball);
 app.disable('x-powered-by');
 
 // Add headers
