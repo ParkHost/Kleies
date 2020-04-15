@@ -12,7 +12,7 @@ let data = {};
 
 const internetURL = 'https://kleies.herokuapp.com/fb'
 const intranetURL = 'http://192.168.99.207:3000/fb'
-const reviewURL = 'https://kleies.herokuapp.com/message.html'
+const reviewURL = 'https://parkhost.github.io/Kleies/message.html'
 
 const getData = async () => {
   if (getData.fired) return;
