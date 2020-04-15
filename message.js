@@ -5,8 +5,8 @@ const form = document.querySelector('fieldset');
 const fbimage = document.querySelector('.fb-image')
 const fbmessage = document.querySelector('.fb-messages');
 
-const sendURL = 'http://192.168.99.207:3000/input'
-const reviewURL = 'http://192.168.99.207:3000/message'
+const sendURL = 'https://kleies.herokuapp.com/input'
+const reviewURL = 'https://kleies.herokuapp.com/message'
 
 
 stars.forEach(star => {

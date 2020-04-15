@@ -12,12 +12,12 @@ let data = {};
 
 const internetURL = 'https://kleies.herokuapp.com/fb'
 const intranetURL = 'http://192.168.99.207:3000/fb'
-const reviewURL = 'http://192.168.99.207:5500/message.html'
+const reviewURL = 'https://kleies.herokuapp.com/message.html'
 
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${intranetURL}`);
+  const response = await fetch(`${internet}`);
   const data = await response.json();
 
   data.forEach(element => {
