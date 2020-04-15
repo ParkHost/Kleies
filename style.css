@@ -24,3 +24,7 @@ body {
       fill: white;
   }
 }
+
+.has-text-red {
+  color: red;
+}

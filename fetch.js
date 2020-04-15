@@ -1,27 +1,31 @@
 const express = require('express');
+const volleyball = require('volleyball');
 const fetch = require('node-fetch');
 const cors = require('cors');
 const app = express();
+// const Datastore = require('nedb')
+const {
+  AsyncNedb
+} = require('nedb-async')
 
+const database = new AsyncNedb({
+  filename: 'data.db',
+  autoload: true,
+})
 
+database.loadDatabase();
 
 app.use(cors());
 app.use(express.json());
+app.use(volleyball);
 app.disable('x-powered-by');
 
 // Add headers
 app.use(function (req, res, next) {
-  // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
-  // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  // Request headers you wish to allow
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
-  // Removing "X-Powered-By"); in header
-  // Pass to next layer of middleware
   next();
 });
 
@@ -29,17 +33,59 @@ require('dotenv').config()
 const accessToken = process.env.TOKEN;
 
 const testurl = `https://graph.facebook.com/v6.0/2844484592301102/photos?fields=source,name&limit=100&access_token=${accessToken}`
+const imageURL = `https://graph.facebook.com/v6.0/`
+
+const secondpartofimageURL = `?fields=source&access_token=${accessToken}`
 
 app.get('/', (req, res) => {
   res.send('API is Working ✔')
 });
 
+app.get('/review', async (req, res) => {
+  let fbid = req.query
+  console.log(fbid);
+  console.log(fbid.fbid)
+  res.json(fbid)
+  res.redirect(`/message.html`)
+  const response = await fetch(`${imageURL}${fbid.fbid}${secondpartofimageURL}`);
+  const data = await response.json()
+  console.log(data);
+  database.find({}, (err, data) => {
+    if (err) {
+      res.json(next);
+    }
+    res.json(data);
+  })
+});
+
+app.get('/message', async (req, res, next) => {
+  const query = req.query
+  const fbid = query.id;
+  // console.log(`FB_id = ${fbid}`)
+  const response = await fetch(`${imageURL}${fbid}${secondpartofimageURL}`);
+
+  if (response.status === 200) {
+    const json = await response.json();
+    const entrys = await database.asyncFind({FBid: fbid}, [
+      ['limit', 100]
+    ]);
+    console.log(json)
+    res.json({
+      json,
+      entrys
+    });
+    res.status(200);
+  } else {
+    next();
+  }
+});
+
 app.get('/fb', async (req, res, next) => {
   const data = await fetch(testurl)
-  
+
   if (data.status === 200) {
     const json = await data.json();
-    console.log(json.data)
+    // console.log(json.data)
     const sources = json.data
     // console.log(sources)
     res.json(sources);
@@ -49,6 +95,25 @@ app.get('/fb', async (req, res, next) => {
   }
 
 });
+
+app.post('/input', async (request, response, next) => {
+  console.log('got an request on /input route!')
+  const formData = request.body;
+  console.log(formData);
+  const timestamp = Date.now();
+  formData.timestamp = timestamp;
+  const entered = await database.asyncInsert(formData);
+  const entrys = await database.asyncFind({FBid: formData.FBid}, [
+    ['limit', 100]
+  ]);
+  console.log(entered, entrys);
+
+    response.status(200)
+    response.json({
+      messages: entrys,
+      message: 'Success'
+    });
+})
 
 app.use((error, req, res, next) => {
   res.status(500);

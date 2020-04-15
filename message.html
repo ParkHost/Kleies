@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KleiES Rating</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+    integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.2/css/bulma.min.css"
+    integrity="sha256-qS+snwBgqr+iFVpBB58C9UCxKFhyL03YHpZfdNUhSEw=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./star-style.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="has-navbar-fixed-top has-background-black">
+  <nav class="navbar is-fixed-top has-background-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand" style="width: 100%;">
+      <a class="navbar-item" href="/">
+        <p class="is-size-4 has-text-red has-text-weight-bold">KleiES</p>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" href="mailto:info@kleies.nl"
+        style="color: red; text-decoration: none;">
+        <i class="fas fa-envelope fa-3x has-text-red" style="padding: 0.5rem;"></i>
+      </a>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a href="mailto:info@kleies.nl" style="text-decoration: none; color: red; padding-right: 2rem;">
+                <i class="fas fa-envelope fa-3x"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="column"></div>
+  <div class="columns is-mobile fb-image">
+  </div>
+  <div class="fb-messages">
+  </div>
+  </div>
+  <div class="columns is-mobile">
+    <div class="column"></div>
+    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop">
+      <form id="messageForm" method="POST">
+        <div class="field name-field">
+          <label class="label has-text-white">Naam</label>
+          <div class="control name">
+            <input class="input" type="text" name="name" placeholder="Esther Souren">
+          </div>
+        </div>
+
+        <div class="field message-field">
+          <label class="label has-text-white">Bericht</label>
+          <div class="control">
+            <textarea class="textarea" id="message" placeholder="Bericht"></textarea>
+          </div>
+        </div>
+        <fieldset class="starability-growRotate" name="waardering">
+          <legend class="has-text-white">Ranking:</legend>
+          <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
+            aria-label="No rating." />
+          <input required type="radio" id="first-rate1" name="rating" value="1" />
+          <label for="first-rate1" title="Slecht">1 star</label>
+          <input required type="radio" id="first-rate2" name="rating" value="2" />
+          <label for="first-rate2" title="Redelijk">2 stars</label>
+          <input required type="radio" id="first-rate3" name="rating" value="3" />
+          <label for="first-rate3" title="Blijf oefenen">3 stars</label>
+          <input required type="radio" id="first-rate4" name="rating" value="4" />
+          <label for="first-rate4" title="Goed">4 stars</label>
+          <input required type="radio" id="first-rate5" name="rating" value="5" />
+          <label for="first-rate5" title="Uitstekend">5 stars</label>
+        </fieldset>
+        <button type="submit" class="sendbutton button is-success is-light is-pulled-right">Verstuur</button>
+      </form>
+      <button class="backbutton button is-danger is-light is-pulled-right" style="margin-right: 1rem">Terug</button>
+    </div>
+    <div class="column"></div>
+  </div>
+  <script src="./message.js"></script>
+</body>
+
+</html>

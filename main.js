@@ -5,17 +5,19 @@ const modalBackground = document.querySelector('.modal-background')
 const closeModalButton = document.querySelector('.modal-close')
 const modalImage = document.querySelector('.modal-image')
 const body = document.querySelector('body');
+const reviewBtn = document.querySelector('.reviewButton')
 
 let data = {};
 
 
 const internetURL = 'https://kleies.herokuapp.com/fb'
 const intranetURL = 'http://192.168.99.207:3000/fb'
+const reviewURL = 'http://192.168.99.207:5500/message.html'
 
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${internetURL}`);
+  const response = await fetch(`${intranetURL}`);
   const data = await response.json();
 
   data.forEach(element => {
@@ -40,10 +42,12 @@ const getData = async () => {
 
   console.log(cards)
   for (const card of cards) {
-    card.addEventListener('click', (element) => {
+    card.addEventListener('click', async (element) => {
+      // window.location = "message.html"
       kleiesFBPictures.style.display = 'none';
       modal.classList.add('is-active');
       modal.classList.add('is-clipped');
+      modal.id = `${element.target.id}`
       const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
       const body = document.body;
       // body.style.position = 'fixed';
@@ -85,17 +89,30 @@ if (window.matchMedia &&
   console.log('dark side');
 }
 
-// window.onload = function () {
-//   var scrollY = parseInt('<%=Request.Form["scrollY"] %>');
-//   if (!isNaN(scrollY)) {
-//     window.scrollTo(0, scrollY);
-//   }
-// };
+window.onload = function () {
+  var scrollY = parseInt('<%=Request.Form["scrollY"] %>');
+  if (!isNaN(scrollY)) {
+    window.scrollTo(0, scrollY);
+  }
+};
 
 window.addEventListener('scroll', () => {
   document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
 });
 
+reviewBtn.addEventListener('click', async (e) => {
+  const fbid = modal.id;
+  // const response = await fetch(`${reviewURL}?id=${fbid}`);
+  // const data = await response;
+  // console.log(data);
+  // console.log(data.url);
+  
+  // // console.log('review clicked')
+  // // console.log(`${reviewURL}?fbid=${fbid}`)
+  window.location = `${reviewURL}?id=${fbid}`
+
+  // window.location = "message.html"
+})
 
 
 getData();
