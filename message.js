@@ -161,7 +161,7 @@ async function getMessages() {
 }
 
 backbutton.addEventListener('click', e => {
-  window.location = '/'; 
+  window.location = '/Kleies/'; 
 })
 
 getMessages();
