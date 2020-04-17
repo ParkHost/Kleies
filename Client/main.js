@@ -12,7 +12,7 @@ let data = {};
 
 const internetURL = 'https://kleies.herokuapp.com/fb'
 const intranetURL = 'http://192.168.99.207:3000/fb'
-const reviewURL = 'https://parkhost.github.io/Kleies/message.html'
+const reviewURL = 'http://192.168.99.207:5500/client/message.html'
 
 const getData = async () => {
   if (getData.fired) return;
@@ -102,16 +102,7 @@ window.addEventListener('scroll', () => {
 
 reviewBtn.addEventListener('click', async (e) => {
   const fbid = modal.id;
-  // const response = await fetch(`${reviewURL}?id=${fbid}`);
-  // const data = await response;
-  // console.log(data);
-  // console.log(data.url);
-  
-  // // console.log('review clicked')
-  // // console.log(`${reviewURL}?fbid=${fbid}`)
   window.location = `${reviewURL}?id=${fbid}`
-
-  // window.location = "message.html"
 })
 
 

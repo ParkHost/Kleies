@@ -8,7 +8,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
     integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.2/css/bulma.min.css"
+  <link rel="stylesheet" href="./bulma_0.8.2.css"
     integrity="sha256-qS+snwBgqr+iFVpBB58C9UCxKFhyL03YHpZfdNUhSEw=" crossorigin="anonymous" />
   <link rel="stylesheet" href="./star-style.css">
   <link rel="stylesheet" href="./style.css">
@@ -45,7 +45,7 @@
   </div>
   <div class="columns is-mobile">
     <div class="column"></div>
-    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop">
+    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen">
       <form id="messageForm" method="POST">
         <div class="field name-field">
           <label class="label has-text-white">Naam</label>
@@ -57,7 +57,7 @@
         <div class="field message-field">
           <label class="label has-text-white">Bericht</label>
           <div class="control">
-            <textarea class="textarea" id="message" placeholder="Bericht"></textarea>
+            <textarea class="textarea" id="message" placeholder="Hoi Esther, . . . ."></textarea>
           </div>
         </div>
         <fieldset class="starability-growRotate" name="waardering">
@@ -80,6 +80,19 @@
       <button class="backbutton button is-danger is-light is-pulled-right" style="margin-right: 1rem">Terug</button>
     </div>
     <div class="column"></div>
+  </div>
+  <div class="modal" style="padding: 1.75rem; overflow-y: hidden; height: 100vh;">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <p class="modal-image image is-1by1">
+        <img src="" alt="">
+      </p>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+    <div class="buttons has-addons is-centered" style="padding-top: 1rem;">
+      <button class="reviewButton button is-rounded is-clearfix is-large is-black has-text-weight-bold"
+        style="color: red; font-family: 'Montserrat Alternates';">Review</button>
+    </div>
   </div>
   <script src="./message.js"></script>
 </body>

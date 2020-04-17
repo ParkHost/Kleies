@@ -4,9 +4,10 @@ const backbutton = document.querySelector('.backbutton');
 const form = document.querySelector('fieldset');
 const fbimage = document.querySelector('.fb-image')
 const fbmessage = document.querySelector('.fb-messages');
+const modal = document.querySelector('.modal')
 
-const sendURL = 'https://kleies.herokuapp.com/input'
-const reviewURL = 'https://kleies.herokuapp.com/message'
+const sendURL = 'http://192.168.99.207:3000/input'
+const reviewURL = 'http://192.168.99.207:3000/message'
 
 
 stars.forEach(star => {
@@ -16,26 +17,26 @@ stars.forEach(star => {
 })
 
 // document.querySelectorAll('input').forEach( input => {
-
-//   console.log(input.value)
-  
+//   console.log(input.value) 
 // });
 
 
 document.addEventListener('submit', e => {
   console.log('submit event');
-  // document.querySelectorAll('input').forEach( input => {
-  //   console.log(input.value)  
-  // })
+
   let formdata = {}
-  console.log(starRating)
 
   if (typeof starRating == 'undefined') {
-    alert('Please give some Rating')
+    console.log('starRating == undefined')
+    alert('Please give atleast a Star Rating')
+    e.preventDefault();
+    return false;
   }
 
 
   const urlParams = new URLSearchParams(location.search);
+  console.log(urlParams);
+
   for (const value of urlParams.values()) {
     console.log(value);
     formdata['FBid'] = value
@@ -45,11 +46,10 @@ document.addEventListener('submit', e => {
     formdata['name'] = e.target['name'].value;
     formdata['message'] = e.target['message'].value;
     formdata['rating'] = starRating;
-    console.log('button clicked')
     connect(formdata)
-    console.log(formdata)
     e.preventDefault();
     document.getElementById("messageForm").reset();
+    return true;
   }
 })
 
@@ -63,13 +63,11 @@ async function connect(formData) {
       'content-type': 'application/json'
     },
   }
-  console.log(options);
-  
+
   const data = await fetch(sendURL, options)
   const json = await data.json()
-  console.log(json);
   if (json.message == "Success") {
-    console.log('hi success received client side')
+    console.log('Show Modal - Thank you!')
   }
 };
 
@@ -78,71 +76,71 @@ async function getMessages() {
   for (const value of urlParams.values()) {
     const response = await fetch(`${reviewURL}?id=${value}`);
     const messages = await response.json()
-    console.log(messages);
 
     let messageRatings = []
     let textmessages = [];
 
     messages.entrys.forEach(message => {
-      if(typeof message.rating !== 'undefined') {
+      if (typeof message.rating !== 'undefined') {
         messageRatings.push(message.rating);
       }
-      if(message.name !== "" || message.message !== "") {
+      if (message.name !== "" || message.message !== "") {
         textmessages.push(message)
-        // messageData['message'] += message;
       }
     })
 
-    // console.log(messageRatings);
+
     if (messageRatings.length < 1) {
-       averageVoteValue = 0
+      averageVoteValue = 0
     } else {
       let numberVotes = messageRatings.map(v => parseInt(v, 10));
-      let votevalues = numberVotes.reduce((a,b) => a + b)
+      let votevalues = numberVotes.reduce((a, b) => a + b)
       averageVoteValue = Math.floor(votevalues / messages.entrys.length);
     }
-    // const averageVoteValue = Math.floor(votevalues / messages.entrys.length);
-    
-    
+
+
     textmessages.forEach(textmessage => {
-       fbmessage.innerHTML += `
+
+      a = textmessage.timestamp.toString()
+
+      fbmessage.innerHTML += `
        <div class="columns is-mobile">
        <div class="column"></div>
-       <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop">
-         <div class="card-content has-background-red">
-           <div class="media">
-             <div class="media-content">
-               <p class="title is-6">${textmessage.name}</p>
-             </div>
-           </div>
-           <div class="content">
-           ${textmessage.message}
-             <br>
-             <time class="is-size-7 is-pulled-right" datetime=${textmessage.timestamp}>${textmessage.timestamp}</time>
+       <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen">
+       <div class="card-content has-background-red">
+         <div class="media">
+           <div class="media-content">
+             <p class="title is-6 is-clipped">${textmessage.name}</p>
            </div>
          </div>
+         <div class="content" style="word-wrap: break-word;">
+         ${textmessage.message}
+           <br>
+           <time class="is-size-7 is-pulled-right" datetime=${textmessage.timestamp}>${textmessage.timestamp}</time>
+         </div>
        </div>
-       <div class="column"></div>
-       </div>
+     </div>
+     <div class="column"></div>
+     </div> 
        `
     })
-    
+
     totalVotes = messages.entrys.length
     fbimage.innerHTML =
-    `
+      `
     <div class="column"></div>
-    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop">
+    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
       <div class="card has-background-black">
         <div class="card-image">
           <figure class="image is-4by3">
-            <img
+            <img class="fbmodalimage"
               src="${messages.json.source}"
               alt="Placeholder image">
           </figure>
         </div>
         <div class="columns is-mobile">
           <div class="column">
-            <p class="total-votes has-background-black has-text-white is-pulled-left"
+            <p class="total-votes has-background-black has-text-white is-pulled-left is-size-7-mobile is-size-6-tablet"
             style="margin-top: 1.0rem; margin-bottom: 0.5rem;"> Totaal aantal stemmen: ${totalVotes}
           </p>
           </div>
@@ -161,7 +159,7 @@ async function getMessages() {
 }
 
 backbutton.addEventListener('click', e => {
-  window.location = '/Kleies/'; 
+  window.location = '/client/index.html';
 })
 
 getMessages();

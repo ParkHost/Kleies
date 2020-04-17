@@ -1,9 +1,10 @@
 const express = require('express');
-// const volleyball = require('volleyball');
+const volleyball = require('volleyball');
 const fetch = require('node-fetch');
 const cors = require('cors');
 const app = express();
-// const Datastore = require('nedb')
+
+
 const {
   AsyncNedb
 } = require('nedb-async')
@@ -17,7 +18,7 @@ database.loadDatabase();
 
 app.use(cors());
 app.use(express.json());
-// app.use(volleyball);
+app.use(volleyball);
 app.disable('x-powered-by');
 
 // Add headers
@@ -100,8 +101,10 @@ app.post('/input', async (request, response, next) => {
   console.log('got an request on /input route!')
   const formData = request.body;
   console.log(formData);
-  const timestamp = Date.now();
-  formData.timestamp = timestamp;
+  let current_datetime = new Date()
+  let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()
+  // const timestamp = Date(Date.now());
+  formData.timestamp = formatted_date;
   const entered = await database.asyncInsert(formData);
   const entrys = await database.asyncFind({FBid: formData.FBid}, [
     ['limit', 100]
