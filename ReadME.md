@@ -8,8 +8,8 @@
 * [x] Contact form Mobile view 
 * [x] Open Modal only when selecting image
 * [ ] ~~Text on Modal (or FB-likes 👍🏻)~~
-* [x] Load all titles from FB (it doen't want to load from the last 2 images..)
-* [ ] Hardening with ratelimiting of giving an vote
+* [x] Load all titles from FB
+* [ ] Hardening with rate limiting of giving an vote
 * [ ] Bring nodejs online as a service, create link to git repo
 
 ####  Review Feature after some feedback:
@@ -19,5 +19,6 @@
   * [x] Save comments into database
   * [x] Show comments when opening the review page
   * [x] Calc the average stars
+  * [x] Modal on review or 'error'
 
 

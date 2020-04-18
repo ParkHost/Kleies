@@ -4,7 +4,9 @@ const backbutton = document.querySelector('.backbutton');
 const form = document.querySelector('fieldset');
 const fbimage = document.querySelector('.fb-image')
 const fbmessage = document.querySelector('.fb-messages');
-const modal = document.querySelector('.modal')
+const modal = document.querySelector('.modal');
+const modalBackground = document.querySelector('.modal-background');
+const closeModalButton = document.querySelector('.modal-close')
 
 const sendURL = 'http://192.168.99.207:3000/input'
 const reviewURL = 'http://192.168.99.207:3000/message'
@@ -16,41 +18,59 @@ stars.forEach(star => {
   });
 })
 
-// document.querySelectorAll('input').forEach( input => {
-//   console.log(input.value) 
-// });
-
 
 document.addEventListener('submit', e => {
-  console.log('submit event');
+
+  e.preventDefault();
 
   let formdata = {}
 
-  if (typeof starRating == 'undefined') {
-    console.log('starRating == undefined')
-    alert('Please give atleast a Star Rating')
-    e.preventDefault();
-    return false;
-  }
-
-
   const urlParams = new URLSearchParams(location.search);
-  console.log(urlParams);
-
   for (const value of urlParams.values()) {
-    console.log(value);
     formdata['FBid'] = value
   };
 
+  if (typeof starRating == 'undefined') {
+    modal.classList.add('is-active');
+    modal.classList.add('is-clipped');
+    modal.classList.add('starRatingNot');
+
+    const starRatingNot = document.querySelector('.starRatingNot')
+
+    starRatingNot.addEventListener('click', () => {
+      const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+      const body = document.body;
+      body.style.top = `-${scrollY}`;
+      return false;
+    });
+  };
+
   if (typeof starRating !== 'undefined') {
-    formdata['name'] = e.target['name'].value;
-    formdata['message'] = e.target['message'].value;
-    formdata['rating'] = starRating;
-    connect(formdata)
-    e.preventDefault();
-    document.getElementById("messageForm").reset();
-    return true;
+    modal.classList.add('is-active');
+    modal.classList.add('is-clipped');
+    modal.classList.add('messageCompleted');
+
+    const messageCompleted = document.querySelector('.messageCompleted')
+    messageCompleted.addEventListener('click', () => {
+      formdata['name'] = e.target['name'].value;
+      formdata['message'] = e.target['message'].value;
+      formdata['rating'] = starRating;
+      connect(formdata)
+      document.getElementById("messageForm").reset();
+      return true;
+    });
   }
+  const mediaModal = document.querySelector('.media-modal')
+  if (modal.classList.contains('messageCompleted')) {
+    mediaModal.innerHTML = `
+    <p>Thanks for your message</p>
+    `
+  } else {
+      mediaModal.innerHTML = `
+      <p>Give atleast a Star Rating</p>
+      `
+  }
+  return false
 })
 
 
@@ -67,43 +87,46 @@ async function connect(formData) {
   const data = await fetch(sendURL, options)
   const json = await data.json()
   if (json.message == "Success") {
-    console.log('Show Modal - Thank you!')
+    console.log('Sended to server')
+  }
+  else {
+    console.log(json);
   }
 };
 
 async function getMessages() {
   const urlParams = new URLSearchParams(location.search);
-  for (const value of urlParams.values()) {
-    const response = await fetch(`${reviewURL}?id=${value}`);
-    const messages = await response.json()
+  let valueofMesssage;
+  for (const blabla of urlParams.values()) {
+    valueofMesssage = blabla
+  };
+  const response = await fetch(`${reviewURL}?id=${valueofMesssage}`);
+  const messages = await response.json()
 
-    let messageRatings = []
-    let textmessages = [];
+  let messageRatings = []
+  let textmessages = [];
 
-    messages.entrys.forEach(message => {
-      if (typeof message.rating !== 'undefined') {
-        messageRatings.push(message.rating);
-      }
-      if (message.name !== "" || message.message !== "") {
-        textmessages.push(message)
-      }
-    })
-
-
-    if (messageRatings.length < 1) {
-      averageVoteValue = 0
-    } else {
-      let numberVotes = messageRatings.map(v => parseInt(v, 10));
-      let votevalues = numberVotes.reduce((a, b) => a + b)
-      averageVoteValue = Math.floor(votevalues / messages.entrys.length);
+  messages.entrys.forEach(message => {
+    if (typeof message.rating !== 'undefined') {
+      messageRatings.push(message.rating);
     }
+    if (message.name !== "" || message.message !== "") {
+      textmessages.push(message)
+    }
+  })
+  
+  if (messageRatings.length < 1) {
+    averageVoteValue = 0
+  } else {
+    let numberVotes = messageRatings.map(v => parseInt(v, 10));
+    let votevalues = numberVotes.reduce((a, b) => a + b)
+    averageVoteValue = Math.floor(votevalues / messages.entrys.length);
+  }
+  textmessages.forEach(textmessage => {
 
+    a = textmessage.timestamp.toString()
 
-    textmessages.forEach(textmessage => {
-
-      a = textmessage.timestamp.toString()
-
-      fbmessage.innerHTML += `
+    fbmessage.innerHTML += `
        <div class="columns is-mobile">
        <div class="column"></div>
        <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen">
@@ -123,17 +146,17 @@ async function getMessages() {
      <div class="column"></div>
      </div> 
        `
-    })
+  })
 
-    totalVotes = messages.entrys.length
-    fbimage.innerHTML =
-      `
+  totalVotes = messages.entrys.length
+  fbimage.innerHTML =
+    `
     <div class="column"></div>
     <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
       <div class="card has-background-black">
         <div class="card-image">
           <figure class="image is-4by3">
-            <img class="fbmodalimage"
+            <img
               src="${messages.json.source}"
               alt="Placeholder image">
           </figure>
@@ -150,15 +173,45 @@ async function getMessages() {
           </p>
           </div>
         </div>
-
       </div>
     </div>
     <div class="column"></div>
     `
-  }
 }
 
-backbutton.addEventListener('click', e => {
+function closeModal() {
+  // kleiesFBPictures.style.display = '';
+  modal.classList.remove('is-active');
+  modal.classList.remove('is-clipped');
+  const body = document.body;
+  const scrollY = body.style.top;
+  body.style.position = '';
+  body.style.top = '';
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
+};
+
+
+
+closeModalButton.addEventListener('click', function (e) {
+  if (modal.classList.contains('is-active')) {
+    closeModal()
+  }
+});
+
+window.addEventListener('click', function (e) {
+  if (e.target == modalBackground) {
+    closeModal()
+  }
+});
+
+
+if (window.matchMedia &&
+  window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  console.log('dark side');
+}
+
+
+backbutton.addEventListener('click', () => {
   window.location = '/client/index.html';
 })
 

@@ -17,17 +17,15 @@ const reviewURL = 'http://192.168.99.207:5500/client/message.html'
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${internetURL}`);
+  const response = await fetch(`${intranetURL}`);
   const data = await response.json();
 
   data.forEach(element => {
     kleiesFBPictures.innerHTML +=
       `<div class="column is-inline-block-mobile is-6-mobile is-4-tablet is-3-desktop is-2-widescreen has-background-red">
         <div class="card">
-          <div class="card-div">
           <figure class="image is-1by1">
-          <!-- <a href="${element.source}" target="_blank"> </a> -->
-          <img src="${element.source}" id="${element.id}" alt="Placeholder image" class="card-image">
+          <img src="${element.source}" id="${element.id}" alt="Placeholder image" class="select-image">
           </figure>
           <div class="card-content has-background-black">
             <p
@@ -38,19 +36,16 @@ const getData = async () => {
       </div>
       `
   });
-  const cards = document.querySelectorAll('.card-image');
+  const cards = document.querySelectorAll('.select-image');
 
-  console.log(cards)
   for (const card of cards) {
     card.addEventListener('click', async (element) => {
-      // window.location = "message.html"
       kleiesFBPictures.style.display = 'none';
       modal.classList.add('is-active');
       modal.classList.add('is-clipped');
       modal.id = `${element.target.id}`
       const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
       const body = document.body;
-      // body.style.position = 'fixed';
       body.style.top = `-${scrollY}`;
       images.getElementsByTagName('img')[0].src = element.target.src
     })

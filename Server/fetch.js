@@ -101,8 +101,10 @@ app.post('/input', async (request, response, next) => {
   console.log('got an request on /input route!')
   const formData = request.body;
   console.log(formData);
+  
+  console.log(formData);
   let current_datetime = new Date()
-  let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()
+  let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + " " + ('0'+current_datetime.getHours()).slice(-2) +":"+ ('0'+current_datetime.getMinutes()).slice(-2);
   // const timestamp = Date(Date.now());
   formData.timestamp = formatted_date;
   const entered = await database.asyncInsert(formData);
