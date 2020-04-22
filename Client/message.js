@@ -8,8 +8,8 @@ const modal = document.querySelector('.modal');
 const modalBackground = document.querySelector('.modal-background');
 const closeModalButton = document.querySelector('.modal-close')
 
-const sendURL = 'http://192.168.99.207:3000/input'
-const reviewURL = 'http://192.168.99.207:3000/message'
+const sendURL = 'https://api.kleies.nl/input'
+const reviewURL = 'https://api.kleies.nl/message'
 
 
 stars.forEach(star => {
@@ -55,7 +55,7 @@ document.addEventListener('submit', e => {
       formdata['name'] = e.target['name'].value;
       formdata['message'] = e.target['message'].value;
       formdata['rating'] = starRating;
-      connect(formdata)
+      connect(formdata);
       document.getElementById("messageForm").reset();
       return true;
     });
@@ -66,7 +66,7 @@ document.addEventListener('submit', e => {
     <p>Thanks for your message</p>
     `
   } else {
-      mediaModal.innerHTML = `
+    mediaModal.innerHTML = `
       <p>Give atleast a Star Rating</p>
       `
   }
@@ -87,9 +87,10 @@ async function connect(formData) {
   const data = await fetch(sendURL, options)
   const json = await data.json()
   if (json.message == "Success") {
-    console.log('Sended to server')
-  }
-  else {
+    console.log('Sended to server');
+    fbmessage.innerHTML = '';
+    location.reload();
+  } else {
     console.log(json);
   }
 };
@@ -103,6 +104,7 @@ async function getMessages() {
   const response = await fetch(`${reviewURL}?id=${valueofMesssage}`);
   const messages = await response.json()
 
+  fbmessage.innerHTML = '';
   let messageRatings = []
   let textmessages = [];
 
@@ -113,8 +115,8 @@ async function getMessages() {
     if (message.name !== "" || message.message !== "") {
       textmessages.push(message)
     }
-  })
-  
+  });
+
   if (messageRatings.length < 1) {
     averageVoteValue = 0
   } else {
@@ -144,9 +146,9 @@ async function getMessages() {
        </div>
      </div>
      <div class="column"></div>
-     </div> 
-       `
-  })
+     </div>
+    `
+  });
 
   totalVotes = messages.entrys.length
   fbimage.innerHTML =
@@ -180,7 +182,6 @@ async function getMessages() {
 }
 
 function closeModal() {
-  // kleiesFBPictures.style.display = '';
   modal.classList.remove('is-active');
   modal.classList.remove('is-clipped');
   const body = document.body;
@@ -212,7 +213,7 @@ if (window.matchMedia &&
 
 
 backbutton.addEventListener('click', () => {
-  window.location = '/client/index.html';
+  window.location = '/index.html';
 })
 
 getMessages();

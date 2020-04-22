@@ -10,14 +10,14 @@ const reviewBtn = document.querySelector('.reviewButton')
 let data = {};
 
 
-const internetURL = 'https://kleies.herokuapp.com/fb'
-const intranetURL = 'http://192.168.99.207:3000/fb'
-const reviewURL = 'http://192.168.99.207:5500/client/message.html'
+const internetURL = 'https://api.kleies.nl/fb'
+const intranetURL = 'http://localhost:3030/fb'
+const reviewURL = 'http://kleies.nl/message.html'
 
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${intranetURL}`);
+  const response = await fetch(`${internetURL}`);
   const data = await response.json();
 
   data.forEach(element => {
@@ -33,7 +33,6 @@ const getData = async () => {
               ${element.name}</p>
           </div>
         </div>
-      </div>
       `
   });
   const cards = document.querySelectorAll('.select-image');
