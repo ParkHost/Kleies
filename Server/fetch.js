@@ -110,40 +110,39 @@ app.post('/input', async (request, response, next) => {
   const formData = request.body;
   console.log(formData);
 
-  console.log(formData);
   let current_datetime = new Date()
   let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + " " + ('0' + current_datetime.getHours()).slice(-2) + ":" + ('0' + current_datetime.getMinutes()).slice(-2);
   formData.timestamp = formatted_date;
-  const entered = await database.asyncInsert(formData);
+  await database.asyncInsert(formData);
   const entrys = await database.asyncFind({
     FBid: formData.FBid
   }, [
     ['limit', 100]
   ]);
-  console.log(entered, entrys);
+  // console.log(entered, entrys);
 
-  if (entrys) {
-    const msg = {
-      to: 'info@kleies.nl',
-      from: 'info@parkhost.eu',
-      subject: 'Kleies.nl er is een nieuwe reactie geplaatst',
-      text: 'Please enable HTML',
-      html: `<strong>Tijdstip: ${formData.timestamp} </strong><br>
-      <strong>Naam: ${formData.name} </strong><br>
-      <strong>Bericht: ${formData.message} </strong><br>
-      <strong>Aantal Sterren: ${formData.rating}</strong><br>
-      <a href="https://kleies.nl/message.html?id=${formData.FBid}">Link naar pagina</a>`
-    };
+  // if (entrys) {
+  //   const msg = {
+  //     to: 'info@kleies.nl',
+  //     from: 'info@parkhost.eu',
+  //     subject: 'Kleies.nl er is een nieuwe reactie geplaatst',
+  //     text: 'Please enable HTML',
+  //     html: `<strong>Tijdstip: ${formData.timestamp} </strong><br>
+  //     <strong>Naam: ${formData.name} </strong><br>
+  //     <strong>Bericht: ${formData.message} </strong><br>
+  //     <strong>Aantal Sterren: ${formData.rating}</strong><br>
+  //     <a href="https://kleies.nl/message.html?id=${formData.FBid}">Link naar pagina</a>`
+  //   };
 
-    async function sendMessage() {
-      try {
-        await sgMail.send(msg);
-      } catch (err) {
-        console.error(err.toString());
-      }
-    };
-    sendMessage();
-  }
+  //   async function sendMessage() {
+  //     try {
+  //       await sgMail.send(msg);
+  //     } catch (err) {
+  //       console.error(err.toString());
+  //     }
+  //   };
+  //   sendMessage();
+  // }
   response.status(200)
   response.json({
     messages: entrys,
