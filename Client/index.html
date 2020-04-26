@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./bulma_0.8.2.css">
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./star-style.css">
   <title>Kleies Klei-Kunst</title>
 </head>
 
@@ -142,18 +143,56 @@
   <div class="columns is-fluid has-background-black" style="height: 5vh;"></div>
   <div class="columns is-multiline has-background-red kleies-fb-pictures" style='padding: 1.5rem;'>
   </div>
-  <div class="modal" style="padding: 1.75rem; overflow-y: hidden; height: 100vh;">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <p class="modal-image image is-1by1">
-        <img src="" alt="">
-      </p>
+  <div class="modal has-background-black" style="padding: 1.75rem; overflow-y: hidden;">
+    <div class="modal-card">
+      <header class="modal-card-head has-background-black">
+        <p class="subtitle is-size-7 modal-card-title has-text-red has-text-centered has-text-weight-bold"
+          style="word-wrap: break-all;">Review</p>
+      </header>
+      <section class="modal-card-body has-background-black">
+        <p class="modal-image image is-4by3">
+          <img src="" alt="">
+        </p>
+        <div class="div-votes">
+        </div>
+        <div class="colums fb-messages" style="padding-top: 5rem">
+        </div>
+        <form id="reviewForm">
+          <div class="field name-field" style="padding-top: 1rem;">
+            <label class="label has-text-red">Naam</label>
+            <div class="control name">
+              <input class="input input-name" type="text" name="name" placeholder="Esther Souren">
+            </div>
+          </div>
+
+          <div class="field message-field">
+            <label class="label has-text-red">Bericht</label>
+            <div class="control">
+              <textarea class="textarea textarea-message" id="message" placeholder="Hoi Esther, . . . ."></textarea>
+            </div>
+          </div>
+          <fieldset class="starability-growRotate" name="waardering">
+            <legend class="has-text-red">Ranking:</legend>
+            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
+              aria-label="No rating." />
+            <input required type="radio" id="first-rate1" name="rating" value="1" />
+            <label for="first-rate1" title="Slecht">1 star</label>
+            <input required type="radio" id="first-rate2" name="rating" value="2" />
+            <label for="first-rate2" title="Redelijk">2 stars</label>
+            <input required type="radio" id="first-rate3" name="rating" value="3" />
+            <label for="first-rate3" title="Blijf oefenen">3 stars</label>
+            <input required type="radio" id="first-rate4" name="rating" value="4" />
+            <label for="first-rate4" title="Goed">4 stars</label>
+            <input required type="radio" id="first-rate5" name="rating" value="5" />
+            <label for="first-rate5" title="Uitstekend">5 stars</label>
+          </fieldset>
+          <button type="submit" class="sendbutton button is-success is-light is-pulled-right">Verstuur</button>
+        </form>
+        <button class="modal-close is-large" aria-label="close"></button>
+        <button class="backbutton button is-danger is-light is-pulled-right" style="margin-right: 1rem">Terug</button>
+
     </div>
-    <button class="modal-close is-large" aria-label="close"></button>
-    <div class="buttons has-addons is-centered" style="padding-top: 1rem;">
-      <button class="reviewButton button is-rounded is-clearfix is-large is-black has-text-weight-bold"
-        style="color: red; font-family: 'Montserrat Alternates';">Review</button>
-    </div>
+    </section>
   </div>
   <script src="./main.js"></script>
 </body>

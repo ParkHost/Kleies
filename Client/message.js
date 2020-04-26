@@ -4,12 +4,16 @@ const backbutton = document.querySelector('.backbutton');
 const form = document.querySelector('fieldset');
 const fbimage = document.querySelector('.fb-image')
 const fbmessage = document.querySelector('.fb-messages');
-const modal = document.querySelector('.modal');
+// const modal = document.querySelector('.modal');
 const modalBackground = document.querySelector('.modal-background');
 const closeModalButton = document.querySelector('.modal-close')
 
 const sendURL = 'https://api.kleies.nl/input'
 const reviewURL = 'https://api.kleies.nl/message'
+
+const localsendURL = 'http://192.168.99.207:3030/input'
+const localreviewURL = 'http://192.168.99.207:3030/message'
+
 
 
 stars.forEach(star => {
@@ -84,7 +88,7 @@ async function connect(formData) {
     },
   }
 
-  const data = await fetch(sendURL, options)
+  const data = await fetch(localsendURL, options)
   const json = await data.json()
   if (json.message == "Success") {
     console.log('Sended to server');
@@ -101,7 +105,7 @@ async function getMessages() {
   for (const blabla of urlParams.values()) {
     valueofMesssage = blabla
   };
-  const response = await fetch(`${reviewURL}?id=${valueofMesssage}`);
+  const response = await fetch(`${localreviewURL}?id=${valueofMesssage}`);
   const messages = await response.json()
 
   fbmessage.innerHTML = '';
@@ -154,7 +158,7 @@ async function getMessages() {
   fbimage.innerHTML =
     `
     <div class="column"></div>
-    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+    <div class="column is-two-thirds-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
       <div class="card has-background-black">
         <div class="card-image">
           <figure class="image is-4by3">
