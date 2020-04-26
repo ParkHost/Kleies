@@ -46,9 +46,9 @@ const getData = async () => {
   
   data.forEach(element => {
     kleiesFBPictures.innerHTML +=
-      `<div class="column select-image is-inline-block-mobile is-6-mobile is-4-tablet is-3-desktop is-2-widescreen has-background-red select-image">
+      `<div class="column is-inline-block-mobile is-6-mobile is-4-tablet is-3-desktop is-2-widescreen has-background-red">
         <div class="card">
-          <figure class="image is-1by1">
+          <figure class="image is-1by1 select-image">
           <img src="${element.source}" id="${element.id}" alt="Placeholder image">
           </figure>
           <div class="card-content has-background-black">
@@ -75,7 +75,7 @@ const getData = async () => {
       const body = document.body;
       body.style.top = `-${scrollY}`;
       images.getElementsByTagName('img')[0].src = element.target.src
-      modalCardTitle.childNodes[0].nodeValue = card.getElementsByTagName('p')[0].innerHTML.trim();
+      modalCardTitle.childNodes[0].nodeValue = card.parentNode.getElementsByTagName('p')[0].innerHTML.trim()
       
       getMessages(element.target.id);
       modalCard.scrollTop = 10;
@@ -172,6 +172,7 @@ document.getElementById('reviewForm').addEventListener('submit', async function 
     formdata['rating'] = starRating;
   }
   connect(formdata);
+  getMessages(modal.id);
 
   return false
 
