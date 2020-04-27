@@ -175,56 +175,7 @@ document.getElementById('reviewForm').addEventListener('submit', async function 
   getMessages(modal.id);
 
   return false
-
-//   let formdata = {}
-
-//   const urlParams = new URLSearchParams(location.search);
-//   for (const value of urlParams.values()) {
-//     formdata['FBid'] = value
-//   };
-
-//   if (typeof starRating == 'undefined') {
-//     modal.classList.add('is-active');
-//     modal.classList.add('is-clipped');
-//     modal.classList.add('starRatingNot');
-
-//     const starRatingNot = document.querySelector('.starRatingNot')
-
-//     starRatingNot.addEventListener('click', () => {
-//       const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
-//       const body = document.body;
-//       body.style.top = `-${scrollY}`;
-//       return false;
-//     });
-//   };
-
-//   if (typeof starRating !== 'undefined') {
-//     modal.classList.add('is-active');
-//     modal.classList.add('is-clipped');
-//     modal.classList.add('messageCompleted');
-
-//     const messageCompleted = document.querySelector('.messageCompleted')
-//     messageCompleted.addEventListener('click', () => {
-//       formdata['name'] = e.target['name'].value;
-//       formdata['message'] = e.target['message'].value;
-//       formdata['rating'] = starRating;
-//       connect(formdata);
-//       document.getElementById("messageForm").reset();
-//       return true;
-//     });
-//   }
-//   const mediaModal = document.querySelector('.media-modal')
-//   if (modal.classList.contains('messageCompleted')) {
-//     mediaModal.innerHTML = `
-//     <p>Thanks for your message</p>
-//     `
-//   } else {
-//     mediaModal.innerHTML = `
-//       <p>Give atleast a Star Rating</p>
-//       `
-//   }
-  // return false
-})
+});
 
 
 
@@ -281,12 +232,12 @@ async function getMessages(id) {
 
   totalVotes = messages.entrys.length
   divVotes.innerHTML = `
-  <p class="total-votes has-background-black has-text-white is-pulled-left is-size-7-mobile is-size-6-tablet"
-  style="margin-top: 1.0rem; margin-bottom: 0.5rem;"> Totaal aantal stemmen: ${totalVotes}
-  </p>
-  <p class="starability-result has-background-black is-pulled-right average-stars"
-  style="margin-top: 0.5rem; margin-bottom: 0.5rem;" data-rating=${averageVoteValue}>
-  </p>
+    <p class="total-votes has-background-black has-text-white is-pulled-left is-size-7-mobile is-size-6-tablet"
+      style="margin-top: 1.0rem; margin-bottom: 0.5rem;"> Totaal aantal stemmen: ${totalVotes}
+    </p>
+    <p class="starability-result has-background-black is-pulled-right average-stars"
+      style="margin-top: 0.5rem; margin-bottom: 0.5rem;" data-rating=${averageVoteValue}>
+    </p>
   `
   
 }

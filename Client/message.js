@@ -22,10 +22,10 @@ async function getMessages() {
   for (const blabla of urlParams.values()) {
     valueofMesssage = blabla
   };
-  
-  const response = await fetch(`${localreviewURL}?id=${valueofMesssage}`);
+
+  const response = await fetch(`${reviewURL}?id=${valueofMesssage}`);
   const messages = await response.json()
-  
+
 
   fbmessage.innerHTML = '';
   let messageRatings = []
@@ -52,6 +52,7 @@ async function getMessages() {
     a = textmessage.timestamp.toString()
 
     fbmessage.innerHTML += `
+        <div class="columns is-mobile is-multiline">
         <div class="column"></div>
         <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen">
           <div class="card-content has-background-red">
@@ -68,6 +69,7 @@ async function getMessages() {
           </div>
         </div>
           <div class="column"></div>
+        </div>
     `
   });
 

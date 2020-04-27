@@ -32,16 +32,12 @@ app.use(function (req, res, next) {
 });
 
 require('dotenv').config()
-const accessToken = process.env.TOKEN
+const accessToken = process.env.TOKEN;
 sgMail.setApiKey(process.env.API_KEY);
 
-//process.env.TOKEN;
 
 const testurl = `https://graph.facebook.com/v6.0/2844484592301102/photos?fields=source,name&limit=100&access_token=${accessToken}`
 const imageURL = `https://graph.facebook.com/v6.0/`
-
-console.log(testurl);
-
 
 const secondpartofimageURL = `?fields=source&access_token=${accessToken}`
 
@@ -74,10 +70,8 @@ app.get('/review', async (req, res) => {
 app.get('/message', async (req, res, next) => {
   const query = req.query
   const fbid = query.id;
-  console.log(fbid);
   
   const response = await fetch(`${imageURL}${fbid}${secondpartofimageURL}`);
-  console.log(`${imageURL}${fbid}${secondpartofimageURL}`);
   if (response.status === 200) {
     const json = await response.json();
     const entrys = await database.asyncFind({
@@ -113,7 +107,6 @@ app.get('/fb', async (req, res, next) => {
 app.post('/input', async (request, response, next) => {
   console.log('got an request on /input route!')
   const formData = request.body;
-  console.log(formData);
 
   let current_datetime = new Date()
   let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + " " + ('0' + current_datetime.getHours()).slice(-2) + ":" + ('0' + current_datetime.getMinutes()).slice(-2);
@@ -126,30 +119,6 @@ app.post('/input', async (request, response, next) => {
   }, [
     ['limit', 100]
   ]);
-  // console.log(entered, entrys);
-
-  // if (entrys) {
-  //   const msg = {
-  //     to: 'info@kleies.nl',
-  //     from: 'info@parkhost.eu',
-  //     subject: 'Kleies.nl er is een nieuwe reactie geplaatst',
-  //     text: 'Please enable HTML',
-  //     html: `<strong>Tijdstip: ${formData.timestamp} </strong><br>
-  //     <strong>Naam: ${formData.name} </strong><br>
-  //     <strong>Bericht: ${formData.message} </strong><br>
-  //     <strong>Aantal Sterren: ${formData.rating}</strong><br>
-  //     <a href="https://kleies.nl/message.html?id=${formData.FBid}">Link naar pagina</a>`
-  //   };
-
-  //   async function sendMessage() {
-  //     try {
-  //       await sgMail.send(msg);
-  //     } catch (err) {
-  //       console.error(err.toString());
-  //     }
-  //   };
-  //   sendMessage();
-  // }
   response.status(200)
   response.json({
     messages: entrys,
