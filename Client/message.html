@@ -40,59 +40,14 @@
   </div>
   <div class="columns fb-messages">
   </div>
-  </div>
-  <div class="columns is-mobile">
+  <div class="columns">
     <div class="column"></div>
-    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen">
-      <form id="messageForm" method="POST">
-        <div class="field name-field">
-          <label class="label has-text-white">Naam</label>
-          <div class="control name">
-            <input class="input" type="text" name="name" placeholder="Esther Souren">
-          </div>
-        </div>
-
-        <div class="field message-field">
-          <label class="label has-text-white">Bericht</label>
-          <div class="control">
-            <textarea class="textarea" id="message" placeholder="Hoi Esther, . . . ."></textarea>
-          </div>
-        </div>
-        <fieldset class="starability-growRotate" name="waardering">
-          <legend class="has-text-white">Ranking:</legend>
-          <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
-            aria-label="No rating." />
-          <input required type="radio" id="first-rate1" name="rating" value="1" />
-          <label for="first-rate1" title="Slecht">1 star</label>
-          <input required type="radio" id="first-rate2" name="rating" value="2" />
-          <label for="first-rate2" title="Redelijk">2 stars</label>
-          <input required type="radio" id="first-rate3" name="rating" value="3" />
-          <label for="first-rate3" title="Blijf oefenen">3 stars</label>
-          <input required type="radio" id="first-rate4" name="rating" value="4" />
-          <label for="first-rate4" title="Goed">4 stars</label>
-          <input required type="radio" id="first-rate5" name="rating" value="5" />
-          <label for="first-rate5" title="Uitstekend">5 stars</label>
-        </fieldset>
-        <div class="div-button" style="padding-top: 1rem; height: 23vh">
-          <button type="submit" class="sendbutton button is-success is-light is-pulled-right">Verstuur</button>
-          <button class="backbutton button is-danger is-light is-pulled-right" style="margin-right: 1rem">Terug</button>
-        </div>
-      </form>
-    </div>
-    <div class="column"></div>
-  </div>
-  <div class="modal" style="padding: 1.75rem; overflow-y: hidden; height: 100vh;">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <div class="box">
-        <div class="media media-modal">
-        </div>
+    <div class="column">
+      <div class="buttons is-centered">
+        <button class="backbutton button is-danger is-inverted is-outlined is-light">Terug Naar Hoofdpagina</button>
       </div>
     </div>
-    <button class="modal-close is-large" aria-label="close"></button>
-    <div class="buttons has-addons is-centered" style="padding-top: 1rem;">
-    </div>
-  </div>
+    <div class="column"></div>
   </div>
   <script src="./message.js"></script>
 </body>

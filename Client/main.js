@@ -46,7 +46,7 @@ const getData = async () => {
   
   data.forEach(element => {
     kleiesFBPictures.innerHTML +=
-      `<div class="column is-inline-block-mobile is-6-mobile is-4-tablet is-3-desktop is-2-widescreen has-background-red">
+      `<div class="column is-inline-block-mobile is-6-mobile is-2-tablet is-2-desktop is-2-widescreen is-1-fullhd has-background-red">
         <div class="card">
           <figure class="image is-1by1 select-image">
           <img src="${element.source}" id="${element.id}" alt="Placeholder image">
@@ -65,7 +65,7 @@ const getData = async () => {
 
   for (const card of cards) {
     card.addEventListener('click', (element) => {
-      console.log(card);
+      console.log(element);
       
       kleiesFBPictures.style.display = 'none';
       modal.classList.add('is-active');
@@ -166,7 +166,7 @@ document.getElementById('reviewForm').addEventListener('submit', async function 
   formdata['message'] = textarea.value;
   
   if (typeof starRating == 'undefined') {
-    alert('Please enter a star rating')
+    alert('Please give atleast a star rating before sending the data to the server')
     return false;
   } else {
     formdata['rating'] = starRating;

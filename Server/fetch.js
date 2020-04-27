@@ -40,6 +40,9 @@ sgMail.setApiKey(process.env.API_KEY);
 const testurl = `https://graph.facebook.com/v6.0/2844484592301102/photos?fields=source,name&limit=100&access_token=${accessToken}`
 const imageURL = `https://graph.facebook.com/v6.0/`
 
+console.log(testurl);
+
+
 const secondpartofimageURL = `?fields=source&access_token=${accessToken}`
 
 app.get('/', (req, res) => {
@@ -71,8 +74,10 @@ app.get('/review', async (req, res) => {
 app.get('/message', async (req, res, next) => {
   const query = req.query
   const fbid = query.id;
+  console.log(fbid);
+  
   const response = await fetch(`${imageURL}${fbid}${secondpartofimageURL}`);
-
+  console.log(`${imageURL}${fbid}${secondpartofimageURL}`);
   if (response.status === 200) {
     const json = await response.json();
     const entrys = await database.asyncFind({
@@ -113,6 +118,8 @@ app.post('/input', async (request, response, next) => {
   let current_datetime = new Date()
   let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + " " + ('0' + current_datetime.getHours()).slice(-2) + ":" + ('0' + current_datetime.getMinutes()).slice(-2);
   formData.timestamp = formatted_date;
+  formData.message = formData.message.toString();
+  formData.name = formData.name.toString();
   await database.asyncInsert(formData);
   const entrys = await database.asyncFind({
     FBid: formData.FBid

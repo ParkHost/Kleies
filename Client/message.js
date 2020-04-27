@@ -16,97 +16,16 @@ const localreviewURL = 'http://192.168.99.207:3030/message'
 
 
 
-stars.forEach(star => {
-  star.addEventListener('click', (e) => {
-    starRating = e.target.value
-  });
-})
-
-
-document.addEventListener('submit', e => {
-
-  e.preventDefault();
-
-  let formdata = {}
-
-  const urlParams = new URLSearchParams(location.search);
-  for (const value of urlParams.values()) {
-    formdata['FBid'] = value
-  };
-
-  if (typeof starRating == 'undefined') {
-    modal.classList.add('is-active');
-    modal.classList.add('is-clipped');
-    modal.classList.add('starRatingNot');
-
-    const starRatingNot = document.querySelector('.starRatingNot')
-
-    starRatingNot.addEventListener('click', () => {
-      const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
-      const body = document.body;
-      body.style.top = `-${scrollY}`;
-      return false;
-    });
-  };
-
-  if (typeof starRating !== 'undefined') {
-    modal.classList.add('is-active');
-    modal.classList.add('is-clipped');
-    modal.classList.add('messageCompleted');
-
-    const messageCompleted = document.querySelector('.messageCompleted')
-    messageCompleted.addEventListener('click', () => {
-      formdata['name'] = e.target['name'].value;
-      formdata['message'] = e.target['message'].value;
-      formdata['rating'] = starRating;
-      connect(formdata);
-      document.getElementById("messageForm").reset();
-      return true;
-    });
-  }
-  const mediaModal = document.querySelector('.media-modal')
-  if (modal.classList.contains('messageCompleted')) {
-    mediaModal.innerHTML = `
-    <p>Thanks for your message</p>
-    `
-  } else {
-    mediaModal.innerHTML = `
-      <p>Give atleast a Star Rating</p>
-      `
-  }
-  return false
-})
-
-
-async function connect(formData) {
-  // console.log(formData)
-  const options = {
-    method: 'POST',
-    body: JSON.stringify(formData),
-    headers: {
-      'content-type': 'application/json'
-    },
-  }
-
-  const data = await fetch(localsendURL, options)
-  const json = await data.json()
-  if (json.message == "Success") {
-    console.log('Sended to server');
-    fbmessage.innerHTML = '';
-    location.reload();
-  } else {
-    console.log(json);
-  }
-};
-
 async function getMessages() {
   const urlParams = new URLSearchParams(location.search);
   let valueofMesssage;
   for (const blabla of urlParams.values()) {
     valueofMesssage = blabla
   };
+  
   const response = await fetch(`${localreviewURL}?id=${valueofMesssage}`);
   const messages = await response.json()
+  
 
   fbmessage.innerHTML = '';
   let messageRatings = []
@@ -133,24 +52,22 @@ async function getMessages() {
     a = textmessage.timestamp.toString()
 
     fbmessage.innerHTML += `
-       <div class="columns is-mobile">
-       <div class="column"></div>
-       <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen">
-       <div class="card-content has-background-red">
-         <div class="media">
-           <div class="media-content">
-             <p class="title is-6 is-clipped">${textmessage.name}</p>
-           </div>
-         </div>
-         <div class="content" style="word-wrap: break-word;">
-         ${textmessage.message}
-           <br>
-           <time class="is-size-7 is-pulled-right" datetime=${textmessage.timestamp}>${textmessage.timestamp}</time>
-         </div>
-       </div>
-     </div>
-     <div class="column"></div>
-     </div>
+        <div class="column"></div>
+        <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen">
+          <div class="card-content has-background-red">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-6 is-clipped">${textmessage.name}</p>
+              </div>
+            </div>
+            <div class="content" style="word-wrap: break-word;">
+              ${textmessage.message}
+              <br>
+              <time class="is-size-7 is-pulled-right" datetime=${textmessage.timestamp}>${textmessage.timestamp}</time>
+            </div>
+          </div>
+        </div>
+          <div class="column"></div>
     `
   });
 
@@ -158,7 +75,7 @@ async function getMessages() {
   fbimage.innerHTML =
     `
     <div class="column"></div>
-    <div class="column is-two-thirds-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+    <div class="column is-two-thirds-mobile is-half-tablet is-half-desktop is-one-third-widescreen">
       <div class="card has-background-black">
         <div class="card-image">
           <figure class="image is-4by3">
@@ -184,30 +101,6 @@ async function getMessages() {
     <div class="column"></div>
     `
 }
-
-function closeModal() {
-  modal.classList.remove('is-active');
-  modal.classList.remove('is-clipped');
-  const body = document.body;
-  const scrollY = body.style.top;
-  body.style.position = '';
-  body.style.top = '';
-  window.scrollTo(0, parseInt(scrollY || '0') * -1);
-};
-
-
-
-closeModalButton.addEventListener('click', function (e) {
-  if (modal.classList.contains('is-active')) {
-    closeModal()
-  }
-});
-
-window.addEventListener('click', function (e) {
-  if (e.target == modalBackground) {
-    closeModal()
-  }
-});
 
 
 if (window.matchMedia &&
