@@ -57,6 +57,7 @@ const getData = async () => {
               ${element.name}</p>
           </div>
         </div>
+      </div>
       `
   });
   const cards = document.querySelectorAll('.select-image');
@@ -226,7 +227,7 @@ async function getMessages(id) {
            <br>
            <time class="subtitle is-size-7 is-pulled-right" datetime=${textmessage.timestamp}>${textmessage.timestamp}</time>
          </div>
-
+      </div>
     `
   });
 
