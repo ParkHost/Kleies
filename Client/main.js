@@ -40,7 +40,7 @@ stars.forEach(star => {
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${intranetURL}`);
+  const response = await fetch(`${internetURL}`);
   const data = await response.json();
   
   
