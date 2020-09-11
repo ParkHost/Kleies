@@ -17,7 +17,7 @@ const textarea = document.querySelector('.textarea-message')
 const name = document.querySelector('.input-name')
 
 let data = {};
-let formdata = {}
+let formdata = {};
 
 
 const internetURL = 'https://api.kleies.nl/fb'
@@ -40,7 +40,7 @@ stars.forEach(star => {
 const getData = async () => {
   if (getData.fired) return;
   getData.fired = true;
-  const response = await fetch(`${internetURL}`);
+  const response = await fetch(`${intranetURL}`);
   const data = await response.json();
   
   
@@ -143,7 +143,7 @@ async function connect(formData) {
     },
   }
 
-  const data = await fetch(localsendURL, options)
+  const data = await fetch(sendURL, options)
   const json = await data.json()
   if (json.message == "Success") {
     console.log('Sended to server');
@@ -186,7 +186,7 @@ async function getMessages(id) {
 
   console.log(id);
   
-  const response = await fetch(`${localgetURL}?id=${id}`);
+  const response = await fetch(`${getURL}?id=${id}`);
   const messages = await response.json()
 
   fbmessage.innerHTML = '';
