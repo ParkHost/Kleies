@@ -6,8 +6,8 @@ const app = express();
 const path = require('path');
 const sgMail = require('@sendgrid/mail');
 
-
 require('dotenv').config()
+
 const accessToken = process.env.TOKEN;
 sgMail.setApiKey(process.env.API_KEY);
 
@@ -35,8 +35,6 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
-
-
 
 const testurl = `https://graph.facebook.com/v6.0/2844484592301102/photos?fields=source,name&limit=100&access_token=${accessToken}`
 const imageURL = `https://graph.facebook.com/v6.0/`
