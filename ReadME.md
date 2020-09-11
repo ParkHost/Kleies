@@ -10,7 +10,7 @@
 * [ ] ~~Text on Modal (or FB-likes 👍🏻)~~
 * [x] Load all titles from FB
 * [ ] Hardening with rate limiting of giving an vote
-* [ ] Bring nodejs online as a service, create link to git repo
+* [x] Bring nodejs (api-kleies) online as a service, create link to git repo (accomplished with docker)
 
 ####  Review Feature after some feedback:
 * [x] Second "Review" Page
