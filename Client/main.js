@@ -42,8 +42,8 @@ const getData = async () => {
   getData.fired = true;
   const response = await fetch(`${intranetURL}`);
   const data = await response.json();
-  
-  
+
+
   data.forEach(element => {
     kleiesFBPictures.innerHTML +=
       `<div class="column is-inline-block-mobile is-6-mobile is-2-tablet is-2-desktop is-2-widescreen is-1-fullhd has-background-red">
@@ -67,7 +67,7 @@ const getData = async () => {
   for (const card of cards) {
     card.addEventListener('click', (element) => {
       console.log(element);
-      
+
       kleiesFBPictures.style.display = 'none';
       modal.classList.add('is-active');
       modal.classList.add('is-clipped');
@@ -77,10 +77,10 @@ const getData = async () => {
       body.style.top = `-${scrollY}`;
       images.getElementsByTagName('img')[0].src = element.target.src
       modalCardTitle.childNodes[0].nodeValue = card.parentNode.getElementsByTagName('p')[0].innerHTML.trim()
-      
+
       getMessages(element.target.id);
       modalCard.scrollTop = 10;
-      
+
     })
   };
 
@@ -143,7 +143,7 @@ async function connect(formData) {
     },
   }
 
-  const data = await fetch(sendURL, options)
+  const data = await fetch(localsendURL, options)
   const json = await data.json()
   if (json.message == "Success") {
     console.log('Sended to server');
@@ -158,14 +158,14 @@ async function connect(formData) {
 
 
 document.getElementById('reviewForm').addEventListener('submit', async function (e) {
-  
+
   e.preventDefault();
   e.stopPropagation()
 
   formdata['FBid'] = modal.id;
   formdata['name'] = name.value;
   formdata['message'] = textarea.value;
-  
+
   if (typeof starRating == 'undefined') {
     alert('Please give atleast a star rating before sending the data to the server')
     return false;
@@ -185,8 +185,8 @@ document.getElementById('reviewForm').addEventListener('submit', async function 
 async function getMessages(id) {
 
   console.log(id);
-  
-  const response = await fetch(`${getURL}?id=${id}`);
+
+  const response = await fetch(`${localgetURL}?id=${id}`);
   const messages = await response.json()
 
   fbmessage.innerHTML = '';
@@ -240,7 +240,7 @@ async function getMessages(id) {
       style="margin-top: 0.5rem; margin-bottom: 0.5rem;" data-rating=${averageVoteValue}>
     </p>
   `
-  
+
 }
 
 

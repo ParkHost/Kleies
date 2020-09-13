@@ -45,11 +45,6 @@ app.get('/', (req, res) => {
   res.send('API is Working ✔')
 });
 
-app.get('/test', (req, res) => {
-  console.log(testurl);
-  res.send("API Test is working!!");
-});
-
 app.get('/review', async (req, res) => {
   let fbid = req.query
   console.log(fbid);

@@ -11,8 +11,8 @@ const closeModalButton = document.querySelector('.modal-close')
 const sendURL = 'https://api.kleies.nl/input'
 const reviewURL = 'https://api.kleies.nl/message'
 
-const localsendURL = 'http://192.168.99.207:3030/input'
-const localreviewURL = 'http://192.168.99.207:3030/message'
+// const localsendURL = 'http://192.168.99.207:3030/input'
+// const localreviewURL = 'http://192.168.99.207:3030/message'
 
 
 
